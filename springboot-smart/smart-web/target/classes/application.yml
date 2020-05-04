@@ -1,0 +1,31 @@
+spring:
+  profiles:
+    #配置环境配置，dev（开发环境：application-dev.yml），test（测试环境：application-test.yml），prod（生产环境：application-prod.yml）
+    active: dev
+  mvc:
+    static-path-pattern: /**
+  resources:
+    static-locations: classpath:/templates/,classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/
+#  freemarker:
+#    suffix: .html
+#    request-context-attribute: request
+#    template-loader-path: classpath:/templates/
+
+#mybatis
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.cignacmb.smart.model
+
+#encryptorkey:
+#  keyname: ${enckey}
+jasypt:
+  encryptor:
+    password: smartpassword
+
+
+#端口
+server:
+  port: 8083
+#  servlet:
+#    context-path: /smart

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="/plugins/layui/css/layui.css">
+    <form class='layui-form layui-form-pane smart-query-form' style="margin-top: 20px;">
+        <button id="getDate">获取数据</button>
+    </form>
+</head>
+<body>
+
+<!--<script src="/plugins/common/js/jquery-form.js" charset="UTF-8"></script>-->
+<!--<script src="/plugins/common/js/jquery.min.js" charset="UTF-8"></script>-->
+<script src="/plugins/layui/layui.js" charset="UTF-8"></script>
+
+<script>
+    layui.use(["jquery", "layer"], function () {
+        var $ = layui.jquery
+            , layer = layui.layer;
+        $("#getDate").on('click', function () {
+            $.ajax({
+                type: "GET",
+                url: 'http://localhost:8083/dynamicDataSource/test',
+                dataType: "json",
+                success: function (req) {
+                    layer.msg('请求成功时处理');
+                }
+            })
+        })
+    })
+</script>
+</body>
+</html>

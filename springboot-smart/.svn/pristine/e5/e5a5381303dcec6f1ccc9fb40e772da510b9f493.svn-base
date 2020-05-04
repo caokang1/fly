@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="com.cignacmb.smart.menu.dao.LdCodeDao">
+
+	<resultMap id="BaseResultMap" type="com.cignacmb.smart.entity.base.LdCode">
+	    <id column="CODETYPE" jdbcType="VARCHAR" property="codeType" />
+	    <id column="CODE" jdbcType="VARCHAR" property="code" />
+	    <result column="CODENAME" jdbcType="VARCHAR" property="codeName" />
+	    <result column="CODEALIAS" jdbcType="VARCHAR" property="codeAlias" />
+	    <result column="COMCODE" jdbcType="VARCHAR" property="comCode" />
+<!--	    <result column="OTHERSIGN" jdbcType="VARCHAR" property="OtherSign" />-->
+	 </resultMap>
+	 
+	 <sql id="Base_Column_List">
+    	CODETYPE, CODE, CODENAME, CODEALIAS, COMCODE, OTHERSIGN
+  	</sql>
+  	
+  	<sql id="Base_Dynamic_Where">
+	    <where>
+	      <if test="codeType != null and codeType != ''">
+	        and CODETYPE = #{codeType,jdbcType=VARCHAR}
+	      </if>
+	      <if test="code != null and code != ''">
+	        and CODE = #{code,jdbcType=VARCHAR}
+	      </if>
+	      <if test="codeName != null and codeName != ''">
+	        and CODENAME = #{codeName,jdbcType=VARCHAR}
+	      </if>
+	      <if test="codeAlias != null and codeAlias != ''">
+	        and CODEALIAS = #{codeAlias,jdbcType=VARCHAR}
+	      </if>
+	      <if test="comCode != null and comCode != ''">
+	        and COMCODE = #{comCode,jdbcType=VARCHAR}
+	      </if>
+	      <if test="OtherSign != null and OtherSign != ''">
+	        and OTHERSIGN = #{OtherSign,jdbcType=VARCHAR}
+	      </if>
+	    </where>
+	</sql>
+	 
+	<sql id ='codeparam'>
+			codeType,code ,codeName
+	</sql>
+	
+	<select id="quseryListByType" parameterType="String" resultMap="BaseResultMap">
+		
+		select
+		<include refid="codeparam" />
+		from ldcode where 1=1 
+		and  codeType =  #{codeType,jdbcType=VARCHAR} 
+		
+	</select>
+	<select id="quseryListByTypeAndCode" parameterType="String" resultType="com.cignacmb.smart.entity.base.LdCode">
+		
+		select *
+		from ldcode where 1=1 
+		and  codeType =  #{codeType,jdbcType=VARCHAR} 
+		and code like #{code,jdbcType=VARCHAR} ||'%'
+		
+	</select>
+	<select id="quseryManagecomByType" parameterType="String" resultType="com.cignacmb.smart.entity.base.LdCode">
+		select a.codetype,a.code,a.codealias 
+		from ldcode a where 1=1
+		and a.codetype  =#{codeType,jdbcType=VARCHAR}
+	</select>
+	
+		<select id="tmmanagecom" parameterType="java.util.Map" resultType="java.util.Map">
+		select a.managecom as managecom,a.shortname as name from tmmanagecom a where  1=1 
+		<if test="comcode !=null and comcode !='' ">
+   			and  a.comcode like  #{comcode,jdbcType=VARCHAR}||'%'
+   		</if>
+   		
+   		<if test="comgrade !=null and comgrade !='' ">
+   			and  a.comgrade =  #{comgrade,jdbcType=VARCHAR}
+   		</if>
+		
+	</select>
+	
+	<select id="tmbranchgroup" parameterType="java.util.Map" resultType="java.util.Map">
+		select a.branchattr, a.branchname, a.agentgroup
+		  from tmbranchgroup a
+		 where a.branchtype = '1'
+ 		<if test="comcode !=null and comcode !='' ">
+ 		and exists (select 1
+          from tmmanagecom b
+         where b.managecom = a.managecom
+           and b.comcode like  #{comcode,jdbcType=VARCHAR}||'%')		
+   		</if>
+   		<if test="managecom != null and managecom != '' ">
+   		and a.managecom = #{managecom,jdbcType=VARCHAR}
+   		</if>
+   	 order by a.branchattr
+
+	</select>
+	
+	<select id="createMaxNo"  parameterType="String" resultType="String">
+		select to_char(createmaxno(#{noType,jdbcType=VARCHAR},#{noLimit,jdbcType=VARCHAR}),'FM0000000000') from dual
+	
+	</select>
+	
+	<select id="queryMaxFreeze"  parameterType="String" resultType="String">
+		select codealias from  ldcode  where codetype=#{codeType,jdbcType=VARCHAR} and code =#{code,jdbcType=VARCHAR} 
+	
+	</select>
+	
+	<select id="selectByCondition" parameterType="com.cignacmb.smart.entity.base.LdCode" resultMap="BaseResultMap">
+	    select
+	    <include refid="Base_Column_List" />
+	    from
+	    LDCODE
+	    <include refid="Base_Dynamic_Where" />
+	    order by codetype, othersign, code
+	 </select>
+	
+</mapper>

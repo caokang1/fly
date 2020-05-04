@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="GBK"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cignacmb.smart.dao.LaagentDao2">
+
+    <resultMap id="BaseResultMap" type="com.cignacmb.smart.entity.tm.Laagent">
+    <id column="managecom" jdbcType="VARCHAR" property="managecom" />
+    <id column="agentcode" jdbcType="DECIMAL" property="agentcode" />
+    <id column="agentnum" jdbcType="VARCHAR" property="agentnum" />
+    </resultMap>
+
+    <select id="selectList" resultMap="BaseResultMap">
+        select * from Laagent
+    </select>
+
+</mapper>

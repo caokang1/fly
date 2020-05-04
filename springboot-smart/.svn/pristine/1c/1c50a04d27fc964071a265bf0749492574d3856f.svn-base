@@ -1,0 +1,34 @@
+package com.cignacmb.smart.service;
+
+
+import com.cignacmb.smart.dao.LaagentDao2;
+import com.cignacmb.smart.entity.tm.Laagent;
+import lombok.extern.java.Log;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+/**
+ * 测试多数据源
+ * <p>
+ *
+ * @Author: caokang
+ */
+@Service
+@Log
+public class DynamicDataSourceTestService {
+
+
+    @Autowired
+    private LaagentDao2 laagentDao2;
+
+    @Transactional(rollbackFor = Exception.class)
+    public StringBuffer selectLaagentList1() {
+        StringBuffer stringBuffer = new StringBuffer();
+        List<Laagent> laagentList = laagentDao2.selectList();
+        stringBuffer.append("默认数据源数据：" + laagentList.get(0));
+        return stringBuffer;
+    }
+}

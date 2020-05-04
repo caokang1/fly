@@ -1,0 +1,50 @@
+#数据源配置
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      driverClassName: oracle.jdbc.OracleDriver
+      jndiName: jdbc/ccms
+      connectionTimeout: 10000
+      password: ENC(+WXaDhgfBc/eisepPBvoXXMMqo10h7Y8)
+      url: jdbc:oracle:thin:@10.142.141.16:1521:orasit02
+      username: CCMS_SIT_D
+      validation-query: select 1 from dual
+      test-on-borrow: false
+
+dynamic:
+  datasource:
+    #主数据源
+    slave1:
+      driverClassName: oracle.jdbc.OracleDriver
+      jndiName: jdbc/ccms
+      connectionTimeout: 10000
+      password: ENC(+WXaDhgfBc/eisepPBvoXXMMqo10h7Y8)
+      url: jdbc:oracle:thin:@10.142.141.16:1521:orasit02
+      username: CCMS_SIT_D
+      validation-query: select 1 from dual
+      test-on-borrow: false
+    #副数据源
+    slave2:
+      driverClassName: com.microsoft.sqlserver.jdbc.SQLServerDriver
+      jndiName: jdbc/cplus
+      maxActive: 100
+      maxIdle: 30
+      maxWait: 10000
+      password: ENC(BNAG3nLBc6PEkvmn5UG0IlblJ1GEEoR+)
+      url: jdbc:sqlserver://10.142.141.34:1433;databaseName=CITAS_PLUS_CN
+      username: CITAS_ETE
+
+#mybatis
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/**/*.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.cignacmb.smart.model
+
+# 日志
+logging:
+  config: classpath:logback-spring.xml
+  file:
+    path: D:/usr/mnt/ntfs/ccms/ccmslog/
+  level:
+    com.cignacmb.smart: DEBUG

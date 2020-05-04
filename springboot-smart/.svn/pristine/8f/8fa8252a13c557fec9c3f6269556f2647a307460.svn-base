@@ -1,0 +1,16 @@
+package com.cignacmb.smart.dao;
+
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.cignacmb.smart.entity.tm.Laagent;
+import org.apache.ibatis.annotations.Mapper;
+
+/**
+ * @Author: caokang
+ * @Date: Created in 15:25 2020/1/21
+ * @annotation:接口
+ * @version:1.0
+ * @TableName:
+ */
+@Mapper
+public interface LaagentDao1 extends BaseMapper<Laagent> {
+}

@@ -1,0 +1,56 @@
+package com.cignacmb.smart.service;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.cignacmb.smart.base.annotation.DataSource;
+import com.cignacmb.smart.dao.LaagentDao1;
+import com.cignacmb.smart.dao.SlaveDao1;
+import com.cignacmb.smart.entity.tm.Laagent;
+import com.cignacmb.smart.entity.tm.VSubmitedPolicy;
+import lombok.extern.java.Log;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+/**
+ * 测试多数据源
+ * <p>
+ *
+ * @Author: caokang
+ */
+@Service
+@Log
+public class DynamicDataSourceTestService1 {
+    @Autowired
+    private SlaveDao1 slaveDao;
+
+    @Autowired
+    private LaagentDao1 laagentDao;
+
+    @Transactional(rollbackFor = Exception.class)
+    public StringBuffer selectLaagentList1() {
+        StringBuffer stringBuffer = new StringBuffer();
+        List<Laagent> laagentList = laagentDao.selectList(new QueryWrapper<>());
+        stringBuffer.append("默认数据源数据：" + laagentList.get(0));
+        return stringBuffer;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @DataSource("slave1")
+    public StringBuffer selectLaagentList2() {
+        StringBuffer stringBuffer = new StringBuffer();
+        List<Laagent> laagentList = laagentDao.selectList(new QueryWrapper<>());
+        stringBuffer.append("主数据源数据：" + laagentList.get(0));
+        return stringBuffer;
+    }
+
+    @DataSource("slave2")
+    @Transactional(rollbackFor = Exception.class)
+    public StringBuffer selectVSubmitedPolicyList() {
+        StringBuffer stringBuffer = new StringBuffer();
+        List<VSubmitedPolicy> vSubmitedPolicyList = slaveDao.selectList(new QueryWrapper<>());
+        stringBuffer.append("副数据源数据：" + vSubmitedPolicyList.get(0));
+        return stringBuffer;
+    }
+}

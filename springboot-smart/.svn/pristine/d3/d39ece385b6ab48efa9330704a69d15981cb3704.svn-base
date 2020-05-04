@@ -1,0 +1,60 @@
+/*
+	为了解决layui默认的css下form表单较大，不适合SMART现状
+*/
+/* .layui-form-label {
+	width: 130px !important;
+	font-size: 12px !important;
+} */
+/*
+	主要是给新增、修改的form表单，将label拉长
+*/
+.smart-query-form.smart-update .layui-form-label {
+	width: 30% /* !important */;
+	/* font-size: 12px !important; */
+}
+
+.smart-query-form.smart-update .layui-input-inline {
+	width: 63% /* !important */;
+}
+.smart-query-form.smart-update .layui-input-block {
+	margin-left: 30%;
+}
+.layui-form-pane {
+	font-size: 12px !important;
+}
+
+/* .layui-form-pane */.smart-query-form .layui-form-label {
+	width: 140px;
+	padding: 4px 15px;
+	height: 30px;
+	background-color: #FBFBFB;
+}
+
+/* .layui-form-pane */.smart-query-form .layui-input-block {
+	margin-left: 140px ;
+	min-height: 32px ;
+	font-size: 12px ;
+}
+
+.layui-form-item {
+	margin-bottom: 0px !important;
+}
+
+.layui-input, .layui-select, .layui-textarea {
+	height: 30px !important;
+	line-height: 30px !important;
+	/* border-style: groove !important;*/
+	/* 		background-color: #DCDCDC;  */
+	border-radius: 1px;
+	vertical-align: middle !important;
+}
+
+.layui-form-radio {
+    line-height: 23px !important;
+}
+/*
+	解决新版本的多选下拉大小适配
+*/
+.layui-form-pane xm-select {
+	margin: 0px -1px -1px -1px !important;
+}

@@ -1,0 +1,40 @@
+package com.cignacmb.smart.controller;
+
+import com.cignacmb.smart.base.common.ResponseData;
+import com.cignacmb.smart.service.DynamicDataSourceTestService1;
+import lombok.extern.java.Log;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+/**
+ * 多数据源测试
+ *
+ * @Author: caokang
+ */
+@RestController
+@RequestMapping("/dynamicDataSource")
+@Log
+public class DynamicDataSourceTest {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(DynamicDataSourceTest.class);
+
+    @Autowired
+    private DynamicDataSourceTestService1 dynamicDataSourceTestService;
+
+    @RequestMapping("/test")
+    public ResponseData DynamicDataSourceTest() {
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append(dynamicDataSourceTestService.selectLaagentList1());
+        stringBuffer.append(dynamicDataSourceTestService.selectLaagentList2());
+        stringBuffer.append(dynamicDataSourceTestService.selectVSubmitedPolicyList());
+        log.info("log方式：" + stringBuffer);
+        log.info("sssssssssssssssssssaa啊是的第三代a");
+        System.out.println("System方式:" + stringBuffer);
+        Exception e = new NullPointerException();
+        LOGGER.error("异常2：" + e);
+        return new ResponseData().successWithMsg(stringBuffer);
+    }
+}

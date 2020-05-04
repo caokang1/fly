@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="renderer" content="webkit">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<meta name="viewport"
+		  content="width=device-width, initial-scale=1, maximum-scale=1">
+	<link rel="stylesheet" href="./plugins/layui/css/layui.css" media="all">
+	<!-- <link rel="stylesheet" href="../common/css/basic.css" media="all"> -->
+	<title>SMART佣金系统</title>
+	<!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
+
+	<style type="text/css">
+		.login {
+			width: 450px;
+			/* 	height: 350px; */
+			position: absolute;
+			/* 	margin-left: -200px; */
+			/* 	margin-top: -80px; */
+			top: 25%;
+			left: 31%;
+			display: block;
+			z-index: 10000;
+			/*     background: #fff; */
+			background-color: #FFFFFF;
+		}
+
+		.login-container {
+			width: 450px;
+			position: absolute;
+			border:1px solid #1E9FFF;
+			filter:alpha(Opacity=60);
+			-moz-opacity:0.6;
+			opacity: 0.6;
+			/* 	padding: 20 0; */
+		}
+
+		.login-form {
+			margin-top: 20px;
+		}
+		.layui-input-inline{
+			margin-left:8%
+		}
+
+		.login-top{
+			background-image: url(./images/logintop1.png);
+			background-repeat: no-repeat;
+			background-color: #1E9FFF;
+			height: 75px;
+		}
+
+		.login-top-content-txt {
+			text-align: center;
+			margin-bottom: 3%;
+			font-size: 35px;
+			color: #000000;
+		}
+
+	</style>
+
+</head>
+
+<script src="./plugins/common/js/jquery.min.js"></script>
+<script src="./plugins/layui/layui.js"></script>
+
+<body>
+<div class="login-top"></div>
+<div class="login">
+	<div class="login-top-content-txt">SMART 佣 金 系 统</div>
+	<div class="login-container">
+		<form class="layui-form login-form" method="post" >
+			<div class="layui-form-item layui-row">
+				<label class="layui-form-label"><i class="layui-icon layui-icon-templeate-1" style="font-size: 20px; color: #1E9FFF;"></i>&nbsp;渠道：</label>
+				<div class="layui-input-inline">
+					<select id="channel" name="BranchType" lay-filter="channel" lay-verify="required" lay-search="">
+						<option value="">选择或搜索选择</option>
+						<option value="0">0-全渠道</option>
+						<option value="1">1-电销渠道</option>
+						<option value="2">2-银保渠道</option>
+						<option value="6">6-职团渠道</option>
+					</select>
+					<!-- 					<input type="text" name="channel" required lay-verify="required" autocomplete="off" class="layui-input"> -->
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label"><i class="layui-icon layui-icon-location" style="font-size: 20px; color: #1E9FFF;"></i>&nbsp;机构：</label>
+				<div class="layui-input-inline">
+					<select id="managecom" name="comCode" lay-filter="managecom" lay-verify="required" lay-search="">
+						<option value="">选择或搜索选择</option>
+					</select>
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label"><i class="layui-icon layui-icon-username" style="font-size: 20px; color: #1E9FFF;"></i>&nbsp;用户：</label>
+				<div class="layui-input-inline">
+					<input type="text" name="userCode" lay-filter="user" required lay-verify="required"
+						   placeholder="请输入域账号" autocomplete="off" class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item">
+				<label class="layui-form-label"><i class="layui-icon layui-icon-password" style="font-size: 20px; color: #1E9FFF;"></i>&nbsp;密码：</label>
+				<div class="layui-input-inline">
+					<input type="password" name="PWD" required
+						   lay-verify="required" placeholder="请输入密码" autocomplete="off"
+						   class="layui-input">
+				</div>
+			</div>
+			<div class="layui-form-item layui-row" align="center">
+				<button class="layui-btn" lay-submit lay-filter="submit">登陆</button>
+				<!-- layui-btn-primary -->
+				<button type="reset" class="layui-btn">重置</button>
+			</div>
+		</form>
+
+	</div>
+</div>
+</body>
+
+<script type="text/javascript">
+
+	layui.use([ "form","jquery"], function() {
+		var form = layui.form,
+				$ = layui.jquery,
+				last_channel = "";
+
+		if (top != window){
+			top.location.href = window.location.href;
+		}
+		form.render();
+		form.on('submit(submit)', function(data) {
+			//表单数据formData
+			window.event.returnValue = false;
+			$.ajax({
+				type:"POST",
+				url:"./../login/login",
+				data: $('form').serializeArray(),
+				dataType:"json",
+				success : function(data){
+					if(data.code=="0"){
+						window.location.href = "./../pages/main.html";
+						return true;
+					}else{
+						alert(data.msg);
+						return false;
+					}
+
+				}
+
+			});
+
+		});
+
+		form.on("select(channel)", function(data) {
+			if(last_channel == ""){
+				last_channel = data.value;
+			}
+			else{
+				if(last_channel == data.value){
+					return;
+				}
+				else{
+					last_channel = data.value;
+				}
+			}
+
+			if(data.value == ""){
+				$("#managecom").html("");
+				var html = "<option value=''>选择或搜索选择</option>";
+				$("#managecom").html(html);
+				form.render("select");
+				return;
+			}
+
+			$.ajax({
+				type : "POST",
+				url : "./../ldcom/getLoginList",
+				data : {
+					channel : $("#channel").find("option:selected").val()
+				},
+				dataType : "JSON",
+				success : function(obj) {
+// 					if (obj.code == "0") {
+// 						$("#managecom").html("");
+// 						var html = "<option value=''>选择或搜索选择</option>";
+// 						$.each(obj.data, function(index, value) {
+// 							html += "<option value='"+value.comcode+"'>"
+// 									+ value.name + "</option>";
+// 						});
+// 						$("#managecom").html(html);
+// 						form.render("select");
+// 					} else {
+// 						layer.alert(obj.msg);
+// 					}
+
+					$("#managecom").html("");
+					var html = "<option value=''>选择或搜索选择</option>";
+					$.each(obj.data, function(index, value) {
+						html += "<option value='"+value.comcode+"'>"
+								+ value.name + "</option>";
+					});
+					$("#managecom").html(html);
+					form.render("select");
+				}
+
+			});
+		});
+
+	});
+</script>
+</html>

@@ -1,0 +1,24 @@
+/*
+	解决layui在ie和chrome显示不太一样，专门针对ie进行适配，需要动态加载
+*/
+
+/*
+	在ie浏览器中，如果表格加载了工具栏，则工具栏和原表格之间的间距过大
+*/
+.layui-table-tool {
+	padding: 6px 15px 1px 15px;
+	min-height: 38px;
+}
+
+.layui-table-tool-self{
+	top: 6px !important;
+}
+.smart-lable{
+		filter: progid:DXImageTransform.Microsoft.gradient(GradientType=1, startColorstr=#87CEEB, endColorstr=#FFFFFF);
+}
+/*
+	在IE浏览器中 表格单独查一行 下面没有 辣条~
+*/
+/* .layui-table TD{
+	border-bottom-width:4px !important;
+} */

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="smart-calculate-pub" />
+        <module name="smart-public-service" />
+        <module name="smart-tm-commision" />
+        <module name="smart-common-base" />
+        <module name="smart-calculate-hb" />
+        <module name="smart-common-entity" />
+        <module name="smart-calculate-ba" />
+        <module name="smart-report" />
+        <module name="smart-br" />
+        <module name="smart-tm-charge" />
+        <module name="smart-dispatch" />
+        <module name="smart-calculate-tm" />
+        <module name="smart-hb" />
+        <module name="smart-web" />
+        <module name="smart-ba" />
+        <module name="smart-finance" />
+        <module name="smart-data-interaction" />
+      </profile>
+    </annotationProcessing>
+  </component>
+</project>

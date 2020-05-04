@@ -1,0 +1,27 @@
+package com.cignacmb.smart.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import com.cignacmb.smart.service.DynamicDataSourceTestService;
+
+/**
+ * 多数据源测试
+ *
+ * @Author: caokang
+ */
+@RestController
+@RequestMapping("/dynamicDataSource3")
+public class DynamicDataSourceTest2 {
+
+    @Autowired
+    private DynamicDataSourceTestService dynamicDataSourceTestService;
+
+    @RequestMapping("/test")
+    public StringBuffer DynamicDataSourceTest() {
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append(dynamicDataSourceTestService.selectLaagentList1());
+        return stringBuffer;
+    }
+
+}

@@ -1,0 +1,81 @@
+/* creat by like  全局css*/
+element.style {
+	width: 1230px !important;
+}
+
+html {
+	display: block;
+}
+
+body {
+	width: 98%;
+}
+
+.layui-table th {
+	font-weight: bold !important;
+}
+
+/*
+	隐藏layui的工具栏中的excel导出、打印按钮，没有什么用
+*/
+.layui-table-tool-self .layui-inline[lay-event=LAYTABLE_EXPORT] {
+	display: none;
+}
+
+.layui-table-tool-self .layui-inline[lay-event=LAYTABLE_PRINT] {
+	display: none;
+}
+
+.globalstyle {
+	width: 100%;
+	margin-left: 10px;
+	/* margin: 0px 0px 10px 10px; */
+}
+
+.smart-query-block {
+	/*padding: 10px;*/
+	margin-top: 10px;
+	border: 1px solid #c0c0c0;
+}
+
+.smart-query-info {
+	height: 25px; 
+/* 	background-color: #01AAED;  */
+	font-size: 17px; 
+	font-weight: bold;
+/* 	display: inline-block; */
+	vertical-align: middle;
+	height: 22px;
+	line-height: 26px;
+	
+}
+
+.smart-query-form {
+	margin: 15px;
+}
+
+.smart-importerrlist {
+	padding-left: 20px;
+	padding-top: 3px;
+	font-size: 13px;
+	color: red;
+}
+
+.smart-errListdiv {
+	padding-left: 20px;
+}
+/**标题颜色渐变*/
+.smart-lable{
+ 		background:-webkit-linear-gradient(right,white,white,skyblue);
+	}
+ /**bootstrap icon图标 大小设置*/
+.smart-icon{
+	padding-left: 5px;
+	font-size: 17px !important;
+}
+ /** 
+ 必填项* style
+*/
+.smart-required{
+	color:red; display: inline-block;vertical-align: middle;height: 22px;line-height: 26px;
+}

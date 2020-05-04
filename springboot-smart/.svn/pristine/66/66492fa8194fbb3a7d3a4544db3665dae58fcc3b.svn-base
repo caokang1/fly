@@ -1,0 +1,4 @@
+package com.cignacmb.smart.base.controller;
+
+public class BaseController {
+}
